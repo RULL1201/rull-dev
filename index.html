@@ -9,7 +9,7 @@
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Font Awesome untuk Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -91,7 +91,7 @@
         }
 
         /* ==========================================================
-           FOOTER - TULISAN "2026 RulzzDownloader" DI PALING BAWAH
+           FOOTER
         ========================================================== */
         .footer-bottom {
             text-align: center;
@@ -114,6 +114,156 @@
         .footer-bottom p span {
             color: rgba(255, 255, 255, 0.6);
             font-weight: 600;
+        }
+
+        /* ==========================================================
+           IQC GENERATOR + WINDOWS QUOTES
+        ========================================================== */
+        .iqc-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        .iqc-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 0.8rem;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .iqc-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .iqc-item img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .iqc-item .iqc-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .iqc-item .download-iqc {
+            margin-top: 0.5rem;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            border: none;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .iqc-item .download-iqc:hover {
+            background: #10b981;
+            color: #fff;
+        }
+
+        /* ==========================================================
+           WINDOWS QUOTES
+        ========================================================== */
+        .windows-quote {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(108, 60, 225, 0.05));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .windows-quote .quote-bg {
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(108, 60, 225, 0.05), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .windows-quote .quote-icon {
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+        }
+
+        .windows-quote .quote-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .windows-quote .quote-author {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: 0.5rem;
+            font-weight: 400;
+            position: relative;
+            z-index: 1;
+        }
+
+        .windows-quote .quote-refresh {
+            margin-top: 0.8rem;
+            padding: 0.4rem 1.5rem;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+            z-index: 1;
+        }
+
+        .windows-quote .quote-refresh:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* ==========================================================
+           RESPONSIVE
+        ========================================================== */
+        @media (max-width: 768px) {
+            .iqc-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+            .windows-quote .quote-text {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iqc-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -230,20 +380,55 @@
                     </div>
                 </div>
 
+                <!-- ==========================================================
+                IQC GENERATOR + WINDOWS QUOTES
+                ========================================================== -->
+                <div class="border-t border-neutral-700/50 pt-4 mt-4">
+                    
+                    <!-- IQC Generator -->
+                    <div class="flex justify-between items-center mb-3">
+                        <p class="text-xs font-semibold text-neutral-300">
+                            <i class="fas fa-image mr-1.5 text-neutral-500"></i> IQC Random Images
+                        </p>
+                        <button id="refreshIQC" class="text-emerald-400 hover:text-emerald-300 text-xs font-medium transition duration-150">
+                            <i class="fas fa-sync-alt mr-1"></i> Refresh
+                        </button>
+                    </div>
+                    <div id="iqcContainer" class="iqc-container">
+                        <!-- IQC images akan diisi via JS -->
+                    </div>
+
+                    <!-- Windows Quotes -->
+                    <div class="windows-quote" id="windowsQuote">
+                        <div class="quote-bg"></div>
+                        <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
+                        <div class="quote-text" id="quoteText">"Kegagalan adalah guru terbaik. Setiap jatuh adalah kesempatan untuk bangkit lebih kuat."</div>
+                        <div class="quote-author" id="quoteAuthor">— RulzzXZX</div>
+                        <button class="quote-refresh" id="refreshQuote">
+                            <i class="fas fa-sync-alt mr-1"></i> Quote Lainnya
+                        </button>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </main>
 
-    <!-- Footer RAPIH - TULISAN "2026 RulzzDownloader" DI PALING BAWAH -->
+    <!-- Footer RAPIH -->
     <footer class="footer-bottom">
         <p>
             <span>2026 RulzzDownloader</span> &bull; All rights reserved.
         </p>
     </footer>
 
-    <!-- Logic Javascript -->
+    <!-- ========================================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ========================================================== -->
     <script>
-        // Sistem Toast Notification Minimalis
+        // ==========================================================
+        // TOAST NOTIFICATION
+        // ==========================================================
         void function initAlert() {
             window.showCustomAlert = function(message, type = 'error') {
                 const alertContainer = document.getElementById('alertContainer');
@@ -267,7 +452,9 @@
             };
         }();
 
-        // Mengambil teks dari papan klip
+        // ==========================================================
+        // PASTE FROM CLIPBOARD
+        // ==========================================================
         async function pasteFromClipboard() {
             try {
                 const text = await navigator.clipboard.readText();
@@ -282,7 +469,9 @@
             }
         }
 
-        // Downloader inti tanpa mengalihkan tab halaman
+        // ==========================================================
+        // DOWNLOAD ENGINE
+        // ==========================================================
         async function directDownload(fileUrl, filename) {
             const loading = document.getElementById('loading');
             const loadingText = document.getElementById('loadingText');
@@ -317,6 +506,67 @@
             }
         }
 
+        // ==========================================================
+        // IQC GENERATOR - AMBIL GAMBAR RANDOM DARI API
+        // ==========================================================
+        async function generateIQC() {
+            const container = document.getElementById('iqcContainer');
+            container.innerHTML = '';
+            
+            // API gambar random (picsum.photos)
+            const imageCount = 6;
+            for (let i = 0; i < imageCount; i++) {
+                const randomId = Math.floor(Math.random() * 1000);
+                const imgUrl = `https://picsum.photos/id/${randomId}/300/300`;
+                
+                const item = document.createElement('div');
+                item.className = 'iqc-item';
+                item.innerHTML = `
+                    <img src="${imgUrl}" alt="IQC ${i+1}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%231a1a2e%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2230%22 font-family=%22Arial%22 dy=%22.3em%22%3E🖼️%3C/text%3E%3C/svg%3E'">
+                    <div class="iqc-label">IQC #${i+1}</div>
+                    <button class="download-iqc" data-url="${imgUrl}" data-name="IQC_${i+1}_${Date.now()}.jpg">
+                        <i class="fas fa-download mr-1"></i> Unduh
+                    </button>
+                `;
+                container.appendChild(item);
+            }
+
+            // Event listener untuk tombol download IQC
+            container.querySelectorAll('.download-iqc').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    directDownload(this.dataset.url, this.dataset.name);
+                });
+            });
+        }
+
+        // ==========================================================
+        // WINDOWS QUOTES
+        // ==========================================================
+        const quotes = [
+            { text: "Kegagalan adalah guru terbaik. Setiap jatuh adalah kesempatan untuk bangkit lebih kuat.", author: "RulzzXZX" },
+            { text: "Jangan takut melangkah lambat, yang penting jangan berhenti.", author: "Confucius" },
+            { text: "Hidup bukan tentang menunggu badai berlalu, tapi belajar menari di tengah hujan.", author: "Vivian Greene" },
+            { text: "Orang sukses adalah orang yang terus mencoba meskipun sudah jatuh berkali-kali.", author: "Thomas Edison" },
+            { text: "Kamu tidak akan pernah bisa menyeberangi lautan jika kamu takut kehilangan pandangan daratan.", author: "Christopher Columbus" },
+            { text: "Bukan tentang seberapa besar kekuatanmu, tapi seberapa besar keinginanmu untuk bertahan.", author: "RulzzXZX" },
+            { text: "Hari ini adalah kesempatan untuk menjadi lebih baik dari kemarin.", author: "RulzzXZX" },
+            { text: "Keberanian bukanlah ketiadaan rasa takut, tapi kemampuan untuk melampauinya.", author: "Nelson Mandela" },
+        ];
+
+        function getRandomQuote() {
+            return quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        function updateQuote() {
+            const quote = getRandomQuote();
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
+        }
+
+        // ==========================================================
+        // PROSES DOWNLOAD UTAMA
+        // ==========================================================
         async function processDownload() {
             const urlInput = document.getElementById('videoUrl').value.trim();
             const loading = document.getElementById('loading');
@@ -414,6 +664,12 @@
                         };
                     }
 
+                    // ==========================================================
+                    // GENERATE IQC & QUOTES SETELAH HASIL MUNCUL
+                    // ==========================================================
+                    generateIQC();
+                    updateQuote();
+
                 } else {
                     throw new Error(data.msg || 'Terjadi gangguan sistem.');
                 }
@@ -424,6 +680,22 @@
                 loading.classList.add('hidden');
             }
         }
+
+        // ==========================================================
+        // EVENT LISTENERS
+        // ==========================================================
+        document.getElementById('refreshIQC').addEventListener('click', generateIQC);
+        document.getElementById('refreshQuote').addEventListener('click', updateQuote);
+
+        // Generate IQC awal saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            generateIQC();
+            updateQuote();
+        });
+
+        console.log('%c 🔥 RulzzDownloader - IQC + Windows Quotes 🔥', 'font-size:20px; font-weight:bold; color:#6C3CE1;');
+        console.log('%c Dibangun oleh RulzzXZX', 'font-size:12px; color:#A0A0B8;');
     </script>
+
 </body>
     </html>
