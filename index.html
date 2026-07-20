@@ -16,10 +16,6 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* ==========================================================
-               BACKGROUND JPG LOKAL - TARUH GAMBAR DENGAN NAMA background.jpg
-               DI FOLDER YANG SAMA DENGAN FILE HTML INI
-            ========================================================== */
             background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
@@ -29,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* OVERLAY BIAR TEKS KELIHATAN JELAS */
         body::before {
             content: '';
             position: fixed;
@@ -41,7 +36,6 @@
             z-index: 0;
         }
 
-        /* SEMUA KONTEN DI ATAS OVERLAY */
         header, main, footer {
             position: relative;
             z-index: 1;
@@ -59,7 +53,6 @@
             to { transform: translate(-50%, 0); opacity: 1; }
         }
 
-        /* CARD TRANSPARAN + BLUR */
         .glass-card {
             background: rgba(18, 18, 18, 0.85);
             backdrop-filter: blur(12px);
@@ -91,13 +84,36 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        /* ==========================================================
-           RESPONSIVE: GAMBAR TETAP KELIHATAN
-        ========================================================== */
         @media (max-width: 768px) {
             body {
                 background-attachment: scroll;
             }
+        }
+
+        /* ==========================================================
+           FOOTER - TULISAN "2026 RulzzDownloader" DI PALING BAWAH
+        ========================================================== */
+        .footer-bottom {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            margin-top: 3rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .footer-bottom p span {
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 600;
         }
     </style>
 </head>
@@ -218,11 +234,11 @@
         </div>
     </main>
 
-    <!-- Footer Minimalis -->
-    <footer class="border-t border-neutral-800/30 py-6 bg-dark-glass text-center text-xs font-normal text-neutral-500">
-        <div class="max-w-4xl mx-auto px-4">
-            <p>&copy; 2026 RulzzDownloader. All rights reserved.</p>
-        </div>
+    <!-- Footer RAPIH - TULISAN "2026 RulzzDownloader" DI PALING BAWAH -->
+    <footer class="footer-bottom">
+        <p>
+            <span>2026 RulzzDownloader</span> &bull; All rights reserved.
+        </p>
     </footer>
 
     <!-- Logic Javascript -->
