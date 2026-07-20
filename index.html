@@ -3,393 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RulzzDownloader - Real Download</title>
+    <title>RulzzDownloader - Professional TikTok Extractor</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: #0D0D1A;
-            color: #fff;
+            font-family: 'Inter', sans-serif;
+            /* ==========================================================
+               BACKGROUND IMAGE - GANTI URL NYA SESUAI GAMBAR LO!
+            ========================================================== */
+            background-image: url('https://i.ibb.co.com/your-image.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .logo {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #6C3CE1, #E9405F);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-        .logo span { font-size: 3rem; -webkit-text-fill-color: initial; }
-        .subtitle {
-            text-align: center;
-            color: #A0A0B8;
-            margin-bottom: 25px;
-        }
-        .input-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .input-group input {
-            flex: 1;
-            padding: 14px 20px;
-            border-radius: 50px;
-            border: 2px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            min-width: 200px;
-        }
-        .input-group input:focus {
-            border-color: #6C3CE1;
-        }
-        .btn-download {
-            padding: 14px 30px;
-            border-radius: 50px;
-            border: none;
-            background: linear-gradient(135deg, #6C3CE1, #E9405F);
-            color: #fff;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            white-space: nowrap;
-        }
-        .btn-download:hover { transform: scale(1.05); }
-        .result-area {
-            margin-top: 25px;
-            display: none;
-        }
-        .result-area.show { display: block; }
-        .result-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .result-item .thumb {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            background: #1a1a2e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        .result-item .thumb img {
+
+        /* ==========================================================
+           OVERLAY BIAR TEKS KELIHATAN JELAS
+        ========================================================== */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 0;
         }
-        .result-item .info { flex: 1; }
-        .result-item .info .title { font-weight: 600; }
-        .result-item .info .meta { font-size: 0.85rem; color: #A0A0B8; }
-        .result-item .download-btn {
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: none;
-            background: #FF6B6B;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
+
+        /* ==========================================================
+           SEMUA KONTEN DI ATAS OVERLAY
+        ========================================================== */
+        header, main, footer {
+            position: relative;
+            z-index: 1;
         }
-        .result-item .download-btn:hover { transform: scale(1.05); }
-        .progress-wrapper {
-            margin-top: 15px;
-            display: none;
+
+        .input-focus-effect:focus-within {
+            border-color: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
         }
-        .progress-wrapper.show { display: block; }
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            overflow: hidden;
+        .custom-alert {
+            animation: fadeInTop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #6C3CE1, #E9405F);
-            transition: width 0.3s;
+        @keyframes fadeInTop {
+            from { transform: translate(-50%, -10px); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
         }
-        .progress-text {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #A0A0B8;
-            margin-top: 5px;
+
+        /* ==========================================================
+           CARD JADI TRANSPARAN BIAR KELIHATAN BACKGROUND
+        ========================================================== */
+        .glass-card {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
+
+        .bg-dark-glass {
+            background: rgba(14, 14, 14, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .features .item {
-            text-align: center;
-            padding: 10px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
+
+        .input-glass {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .features .item .icon { font-size: 1.8rem; }
-        .features .item .label { font-size: 0.8rem; color: #A0A0B8; }
-        .footer {
-            text-align: center;
-            margin-top: 25px;
-            color: #A0A0B8;
-            font-size: 0.8rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 20px;
+
+        .input-glass:focus {
+            border-color: #10b981;
+            background: rgba(255, 255, 255, 0.08);
         }
-        @media (max-width: 600px) {
-            .container { padding: 15px; }
-            .logo { font-size: 1.8rem; }
-            .input-group { flex-direction: column; }
-            .btn-download { width: 100%; justify-content: center; }
-            .result-item { flex-wrap: wrap; }
-            .result-item .download-btn { width: 100%; text-align: center; }
+
+        .result-glass {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo"><span>🔥</span> RulzzDownloader</div>
-        <p class="subtitle">Download Video & Foto dari TikTok, Instagram, YouTube & lainnya</p>
 
-        <div class="input-group">
-            <input type="text" id="urlInput" placeholder="Tempelkan URL di sini...">
-            <button class="btn-download" id="downloadBtn">⬇️ Proses</button>
-        </div>
+    <!-- Container untuk Custom Toast Alert -->
+    <div id="alertContainer" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-sm px-4 pointer-events-none"></div>
 
-        <div class="result-area" id="resultArea">
-            <div id="resultContainer"></div>
-            <div class="progress-wrapper" id="progressWrapper">
-                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-                <div class="progress-text" id="progressText">Mengunduh ... 0%</div>
+    <!-- Header / Navbar -->
+    <header class="border-b border-neutral-800/30 bg-dark-glass px-6 py-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-xs font-bold tracking-widest text-neutral-400 uppercase bg-neutral-800/50 px-2.5 py-1 rounded">RULZZ</span>
+                <span class="text-base font-semibold tracking-tight text-white">Downloader</span>
+            </div>
+            
+            <!-- Sosial Media Menu -->
+            <div class="flex space-x-4 text-xs font-medium text-neutral-400">
+                <a href="https://www.tiktok.com/@rulzzmwek?_r=1&_t=ZS-97yLV9zA6gn" target="_blank" class="hover:text-white transition duration-200 flex items-center gap-1.5">
+                    <i class="fab fa-tiktok text-sm"></i> TikTok
+                </a>
+                <a href="https://www.instagram.com/x.khrlrflmi._?igsh=cHRrdWRmZW5lNXIx" target="_blank" class="hover:text-white transition duration-200 flex items-center gap-1.5">
+                    <i class="fab fa-instagram text-sm"></i> Instagram
+                </a>
             </div>
         </div>
+    </header>
 
-        <div class="features">
-            <div class="item"><div class="icon">⚡</div><div class="label">Cepat</div></div>
-            <div class="item"><div class="icon">🖼️</div><div class="label">Foto & Video</div></div>
-            <div class="item"><div class="icon">🔒</div><div class="label">Aman</div></div>
-            <div class="item"><div class="icon">🎯</div><div class="label">Tanpa Watermark</div></div>
+    <!-- Konten Utama -->
+    <main class="flex-grow flex items-center justify-center px-4 py-20">
+        <div class="max-w-2xl w-full">
+            
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 drop-shadow-lg">
+                    TikTok Media Extractor
+                </h1>
+                <p class="text-sm text-neutral-300 max-w-md mx-auto font-light leading-relaxed drop-shadow">
+                    Salin dan tempel tautan untuk mengunduh video, kompilasi foto, serta berkas audio MP3 secara langsung tanpa iklan.
+                </p>
+            </div>
+
+            <!-- Formulir Input Elegan -->
+            <div class="glass-card rounded-xl p-2 flex flex-col sm:flex-row gap-2 input-focus-effect transition duration-200 mb-12">
+                <div class="flex items-center flex-grow px-3 py-2 sm:py-0">
+                    <i class="fas fa-link text-neutral-400 mr-3 text-sm"></i>
+                    <input type="text" id="videoUrl" placeholder="Tempel tautan video, foto, atau musik TikTok..." 
+                        class="bg-transparent w-full focus:outline-none text-white placeholder-neutral-500 text-sm font-normal">
+                    <!-- Tombol Paste -->
+                    <button onclick="pasteFromClipboard()" class="text-neutral-500 hover:text-neutral-300 ml-2 p-1.5 transition duration-150" title="Tempel Tautan">
+                        <i class="fas fa-paste text-base"></i>
+                    </button>
+                </div>
+                <button onclick="processDownload()" class="bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-medium text-xs tracking-wide uppercase px-6 py-3.5 rounded-lg transition duration-150 flex items-center justify-center space-x-2 shrink-0">
+                    <span>Ekstrak</span>
+                    <i class="fas fa-chevron-right text-[10px]"></i>
+                </button>
+            </div>
+
+            <!-- Status Memuat (Loading) -->
+            <div id="loading" class="hidden flex flex-col items-center justify-center space-y-3 my-8">
+                <div class="h-6 w-6 border-2 border-neutral-600 border-t-emerald-500 rounded-full animate-spin"></div>
+                <p id="loadingText" class="text-neutral-300 text-xs font-medium tracking-wide">Memproses data...</p>
+            </div>
+
+            <!-- Panel Hasil / Output -->
+            <div id="resultCard" class="hidden result-glass rounded-xl p-5 text-left transition duration-300">
+                
+                <!-- Info Konten -->
+                <div class="border-b border-neutral-700/50 pb-4 mb-5">
+                    <span class="text-[10px] bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 px-2 py-0.5 rounded font-semibold uppercase tracking-wider mb-2 inline-block">Siap Diunduh</span>
+                    <h3 id="videoTitle" class="text-sm font-medium text-neutral-200 line-clamp-2 leading-relaxed">Judul Video</h3>
+                </div>
+
+                <!-- Preview Video Tunggal -->
+                <div id="videoContainer" class="hidden w-full aspect-[9/16] max-w-[280px] mx-auto bg-black/80 rounded-lg border border-neutral-700/50 overflow-hidden mb-5">
+                    <video id="videoPreview" controls class="w-full h-full object-cover"></video>
+                </div>
+
+                <!-- Tombol Unduh Video -->
+                <div id="videoDownloadAction" class="hidden mb-4">
+                    <button id="downloadBtn" class="w-full bg-neutral-800/80 hover:bg-neutral-700/80 text-white font-medium py-3 rounded-lg text-center text-xs tracking-wider uppercase transition duration-150 flex items-center justify-center gap-2 border border-neutral-700/50">
+                        <i class="fas fa-video text-neutral-400"></i> Simpan Video
+                    </button>
+                </div>
+
+                <!-- Preview Grid Foto Slide -->
+                <div id="photoContainer" class="hidden flex flex-col space-y-4 mb-4">
+                    <div class="flex justify-between items-center gap-3 mb-1">
+                        <p class="text-xs font-semibold text-neutral-300"><i class="fas fa-images mr-1.5 text-neutral-500"></i> File Foto Carousel</p>
+                        <button id="downloadAllPhotosBtn" class="text-emerald-400 hover:text-emerald-300 text-xs font-medium transition duration-150">
+                            <i class="fas fa-download mr-1"></i> Unduh Semua
+                        </button>
+                    </div>
+                    <div id="photoGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        <!-- Konten foto dimasukkan via JS -->
+                    </div>
+                </div>
+
+                <!-- Komponen Unduh MP3 / Audio Musik -->
+                <div id="audioDownloadAction" class="hidden border-t border-neutral-700/50 pt-4 mt-4">
+                    <div class="flex items-center justify-between bg-[#181818]/80 border border-neutral-700/50 p-3 rounded-lg">
+                        <div class="flex items-center space-x-3 min-w-0">
+                            <div class="w-8 h-8 rounded bg-neutral-800/80 flex items-center justify-center shrink-0">
+                                <i class="fas fa-music text-neutral-400 text-xs"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs font-medium text-neutral-300 truncate">Audio Musik Latar</p>
+                                <p class="text-[10px] text-neutral-500 uppercase font-medium">Format .MP3</p>
+                            </div>
+                        </div>
+                        <button id="downloadAudioBtn" class="bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs px-4 py-2 rounded transition duration-150 shrink-0">
+                            Unduh Audio
+                        </button>
+                    </div>
+                </div>
+
+            </div>
         </div>
+    </main>
 
-        <div class="footer">© 2026 RulzzDownloader — Dibangun dengan 🔥 oleh RulzzXZX</div>
-    </div>
+    <!-- Footer Minimalis -->
+    <footer class="border-t border-neutral-800/30 py-6 bg-dark-glass text-center text-xs font-normal text-neutral-500">
+        <div class="max-w-4xl mx-auto px-4">
+            <p>&copy; 2026 RulzzDownloader. All rights reserved.</p>
+        </div>
+    </footer>
 
+    <!-- Logic Javascript -->
     <script>
-        // ==========================================================
-        // API GRATIS UNTUK DOWNLOAD
-        // ==========================================================
-        
-        const urlInput = document.getElementById('urlInput');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const resultArea = document.getElementById('resultArea');
-        const resultContainer = document.getElementById('resultContainer');
-        const progressWrapper = document.getElementById('progressWrapper');
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-
-        // API Downloader Gratis (pake API pihak ketiga)
-        const API_URL = 'https://api.tikmate.app/api/lookup?url=';
-
-        downloadBtn.addEventListener('click', async function() {
-            const url = urlInput.value.trim();
-            if (!url) {
-                urlInput.style.borderColor = '#FF6B6B';
-                urlInput.placeholder = '⚠️ Masukkan URL dulu, KONTOL!';
+        // Sistem Toast Notification Minimalis
+        void function initAlert() {
+            window.showCustomAlert = function(message, type = 'error') {
+                const alertContainer = document.getElementById('alertContainer');
+                const alertBox = document.createElement('div');
+                
+                const borderColor = type === 'error' ? 'border-red-900/80 bg-[#1a1010]/90 text-red-400' : 'border-neutral-800/80 bg-[#121212]/90 text-emerald-400';
+                const icon = type === 'error' ? 'fa-circle-exclamation' : 'fa-circle-check';
+                
+                alertBox.className = `custom-alert fixed left-1/2 flex items-center p-3.5 rounded-lg border ${borderColor} shadow-xl pointer-events-auto min-w-[280px] backdrop-blur-sm`;
+                alertBox.innerHTML = `
+                    <i class="fas ${icon} mr-2.5 text-sm"></i>
+                    <span class="text-xs font-normal tracking-wide">${message}</span>
+                `;
+                
+                alertContainer.appendChild(alertBox);
+                
                 setTimeout(() => {
-                    urlInput.style.borderColor = '';
-                    urlInput.placeholder = 'Tempelkan URL di sini...';
-                }, 2000);
+                    alertBox.classList.add('opacity-0', 'transition', 'duration-300');
+                    setTimeout(() => alertBox.remove(), 300);
+                }, 3000);
+            };
+        }();
+
+        // Mengambil teks dari papan klip
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                if (text) {
+                    document.getElementById('videoUrl').value = text;
+                    showCustomAlert('Tautan berhasil ditempel.', 'success');
+                } else {
+                    showCustomAlert('Clipboard kosong.', 'error');
+                }
+            } catch (err) {
+                showCustomAlert('Gagal mengakses clipboard. Tempel secara manual.', 'error');
+            }
+        }
+
+        // Downloader inti tanpa mengalihkan tab halaman
+        async function directDownload(fileUrl, filename) {
+            const loading = document.getElementById('loading');
+            const loadingText = document.getElementById('loadingText');
+            
+            try {
+                loading.classList.remove('hidden');
+                loadingText.innerText = "Mengunduh berkas...";
+                
+                const res = await fetch(fileUrl);
+                if (!res.ok) throw new Error("Gagal mengunduh.");
+                const blob = await res.blob();
+                
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+            } catch (err) {
+                console.error(err);
+                const a = document.createElement('a');
+                a.href = fileUrl;
+                a.target = '_blank';
+                a.download = filename;
+                a.click();
+            } finally {
+                loading.classList.add('hidden');
+                loadingText.innerText = "Memproses data...";
+            }
+        }
+
+        async function processDownload() {
+            const urlInput = document.getElementById('videoUrl').value.trim();
+            const loading = document.getElementById('loading');
+            const loadingText = document.getElementById('loadingText');
+            const resultCard = document.getElementById('resultCard');
+            const videoContainer = document.getElementById('videoContainer');
+            const videoDownloadAction = document.getElementById('videoDownloadAction');
+            const photoContainer = document.getElementById('photoContainer');
+            const photoGrid = document.getElementById('photoGrid');
+            const audioDownloadAction = document.getElementById('audioDownloadAction');
+            const downloadAudioBtn = document.getElementById('downloadAudioBtn');
+            const videoPreview = document.getElementById('videoPreview');
+            const videoTitle = document.getElementById('videoTitle');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const downloadAllPhotosBtn = document.getElementById('downloadAllPhotosBtn');
+
+            if (!urlInput) {
+                showCustomAlert('Kolom tautan tidak boleh kosong.', 'error');
                 return;
             }
 
-            // Tampilkan loading
-            this.textContent = '⏳ Memproses...';
-            this.disabled = true;
+            if (!urlInput.includes('tiktok.com')) {
+                showCustomAlert('Harap masukkan alamat URL TikTok yang valid.', 'error');
+                return;
+            }
+
+            resultCard.classList.add('hidden');
+            videoContainer.classList.add('hidden');
+            videoDownloadAction.classList.add('hidden');
+            photoContainer.classList.add('hidden');
+            audioDownloadAction.classList.add('hidden');
+            photoGrid.innerHTML = ''; 
+            
+            loadingText.innerText = "Menghubungkan ke server...";
+            loading.classList.remove('hidden');
 
             try {
-                // Coba ambil data dari API
-                const response = await fetch(API_URL + encodeURIComponent(url));
+                const apiUrl = `https://www.tikwm.com/api/?url=${encodeURIComponent(urlInput)}`;
+                const response = await fetch(apiUrl);
                 const data = await response.json();
 
-                if (data && data.video_url) {
-                    showResult(data);
+                if (data.code === 0) {
+                    loading.classList.add('hidden');
+                    resultCard.classList.remove('hidden');
+                    
+                    videoTitle.innerText = data.data.title || "Tautan TikTok Berhasil Diproses";
+
+                    // Kondisi Konten Berupa Foto / Gambar Slide
+                    if (data.data.images && data.data.images.length > 0) {
+                        photoContainer.classList.remove('hidden');
+                        
+                        data.data.images.forEach((imgUrl, index) => {
+                            const photoBox = document.createElement('div');
+                            photoBox.className = 'bg-[#181818]/80 p-2 rounded-lg border border-neutral-700/50 flex flex-col justify-between';
+                            
+                            photoBox.innerHTML = `
+                                <img src="${imgUrl}" class="w-full aspect-square object-cover rounded mb-2.5 border border-neutral-800/50" alt="Slide ${index + 1}">
+                                <button class="bg-neutral-800/80 hover:bg-neutral-700/80 text-neutral-200 text-[11px] font-medium py-1.5 rounded text-center transition w-full dynamic-dl-photo" data-url="${imgUrl}" data-name="TikTok_Photo_${index + 1}.jpeg">
+                                    Unduh #${index + 1}
+                                </button>
+                            `;
+                            photoGrid.appendChild(photoBox);
+                        });
+
+                        photoGrid.querySelectorAll('.dynamic-dl-photo').forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                directDownload(this.getAttribute('data-url'), this.getAttribute('data-name'));
+                            });
+                        });
+
+                        downloadAllPhotosBtn.onclick = async function() {
+                            for (let i = 0; i < data.data.images.length; i++) {
+                                await new Promise(resolve => setTimeout(resolve, 300));
+                                directDownload(data.data.images[i], `TikTok_Photo_${i + 1}.jpeg`);
+                            }
+                        };
+                        
+                    } else {
+                        // Kondisi Konten Berupa Video Tunggal
+                        videoContainer.classList.remove('hidden');
+                        videoDownloadAction.classList.remove('hidden');
+                        
+                        videoPreview.src = data.data.play;
+                        
+                        downloadBtn.onclick = function() {
+                            directDownload(data.data.play, "TikTok_Video_" + Date.now() + ".mp4");
+                        };
+                    }
+
+                    // Ekstraksi Audio Musik Latar (.MP3)
+                    if (data.data.music) {
+                        audioDownloadAction.classList.remove('hidden');
+                        downloadAudioBtn.onclick = function() {
+                            directDownload(data.data.music, "TikTok_Audio_" + Date.now() + ".mp3");
+                        };
+                    }
+
                 } else {
-                    // Fallback: pake metode lain
-                    fallbackDownload(url);
+                    throw new Error(data.msg || 'Terjadi gangguan sistem.');
                 }
+
             } catch (error) {
-                // Kalo API error, pake fallback
-                fallbackDownload(url);
+                console.error(error);
+                showCustomAlert('Gagal mengambil data. Cek kembali privasi kiriman tersebut.', 'error');
+                loading.classList.add('hidden');
             }
-
-            this.textContent = '⬇️ Proses';
-            this.disabled = false;
-        });
-
-        function showResult(data) {
-            resultArea.classList.add('show');
-            resultContainer.innerHTML = '';
-
-            // Tampilkan video
-            if (data.video_url) {
-                const item = createResultItem(
-                    '🎬',
-                    'Video',
-                    data.author || 'Unknown',
-                    data.video_url,
-                    'video'
-                );
-                resultContainer.appendChild(item);
-            }
-
-            // Tampilkan gambar (jika ada)
-            if (data.thumbnail) {
-                const item = createResultItem(
-                    '🖼️',
-                    'Foto/Thumbnail',
-                    data.author || 'Unknown',
-                    data.thumbnail,
-                    'image'
-                );
-                resultContainer.appendChild(item);
-            }
-
-            // Scroll ke hasil
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-
-        function createResultItem(icon, title, author, downloadUrl, type) {
-            const div = document.createElement('div');
-            div.className = 'result-item';
-            
-            // Thumbnail
-            const thumb = document.createElement('div');
-            thumb.className = 'thumb';
-            if (type === 'image' && downloadUrl) {
-                thumb.innerHTML = `<img src="${downloadUrl}" alt="thumbnail" onerror="this.innerHTML='🖼️'">`;
-            } else {
-                thumb.textContent = icon;
-            }
-            
-            // Info
-            const info = document.createElement('div');
-            info.className = 'info';
-            info.innerHTML = `
-                <div class="title">${title}</div>
-                <div class="meta">${author} · Klik Unduh untuk download</div>
-            `;
-            
-            // Tombol Download
-            const btn = document.createElement('button');
-            btn.className = 'download-btn';
-            btn.textContent = '⬇️ Unduh';
-            btn.addEventListener('click', function() {
-                if (downloadUrl) {
-                    startDownload(downloadUrl, type);
-                } else {
-                    alert('Link download tidak tersedia!');
-                }
-            });
-            
-            div.appendChild(thumb);
-            div.appendChild(info);
-            div.appendChild(btn);
-            return div;
-        }
-
-        function startDownload(url, type) {
-            // Tampilkan progress
-            progressWrapper.classList.add('show');
-            progressFill.style.width = '0%';
-            progressText.textContent = '⏳ Memulai download...';
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 10 + 3;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    progressText.textContent = '✅ Download selesai!';
-                    
-                    // Trigger download
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.target = '_blank';
-                    a.download = type === 'video' ? 'video.mp4' : 'foto.jpg';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    
-                    setTimeout(() => {
-                        progressWrapper.classList.remove('show');
-                        progressFill.style.width = '0%';
-                    }, 2000);
-                }
-                progressFill.style.width = progress + '%';
-                progressText.textContent = `⏳ Mengunduh ... ${Math.floor(progress)}%`;
-            }, 200);
-        }
-
-        // ==========================================================
-        // FALLBACK - PAKE IFRAME UNTUK DOWNLOAD
-        // ==========================================================
-
-        function fallbackDownload(url) {
-            resultArea.classList.add('show');
-            resultContainer.innerHTML = `
-                <div class="result-item">
-                    <div class="thumb">📥</div>
-                    <div class="info">
-                        <div class="title">Download Manual</div>
-                        <div class="meta">API tidak merespon, coba buka link ini:</div>
-                    </div>
-                    <button class="download-btn" onclick="window.open('${url}', '_blank')">🔗 Buka Link</button>
-                </div>
-                <div style="padding:15px; background:rgba(255,107,107,0.1); border-radius:12px; margin-top:10px; font-size:0.9rem; color:#FF6B6B;">
-                    ⚠️ Gunakan fitur bawaan browser untuk download dari link tersebut.
-                </div>
-            `;
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        // Enter key
-        urlInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') downloadBtn.click();
-        });
-
-        console.log('%c 🔥 RulzzDownloader - Real Download 🔥', 'font-size:20px; font-weight:bold; color:#6C3CE1;');
-        console.log('%c API: https://api.tikmate.app/api/lookup?url=', 'font-size:12px; color:#A0A0B8;');
     </script>
 </body>
 </html>
