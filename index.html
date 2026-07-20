@@ -17,9 +17,10 @@
         body {
             font-family: 'Inter', sans-serif;
             /* ==========================================================
-               BACKGROUND IMAGE - GANTI URL NYA SESUAI GAMBAR LO!
+               BACKGROUND JPG LOKAL - TARUH GAMBAR DENGAN NAMA background.jpg
+               DI FOLDER YANG SAMA DENGAN FILE HTML INI
             ========================================================== */
-            background-image: url('https://i.ibb.co.com/your-image.jpg');
+            background-image: url('background.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -28,9 +29,7 @@
             min-height: 100vh;
         }
 
-        /* ==========================================================
-           OVERLAY BIAR TEKS KELIHATAN JELAS
-        ========================================================== */
+        /* OVERLAY BIAR TEKS KELIHATAN JELAS */
         body::before {
             content: '';
             position: fixed;
@@ -42,9 +41,7 @@
             z-index: 0;
         }
 
-        /* ==========================================================
-           SEMUA KONTEN DI ATAS OVERLAY
-        ========================================================== */
+        /* SEMUA KONTEN DI ATAS OVERLAY */
         header, main, footer {
             position: relative;
             z-index: 1;
@@ -62,9 +59,7 @@
             to { transform: translate(-50%, 0); opacity: 1; }
         }
 
-        /* ==========================================================
-           CARD JADI TRANSPARAN BIAR KELIHATAN BACKGROUND
-        ========================================================== */
+        /* CARD TRANSPARAN + BLUR */
         .glass-card {
             background: rgba(18, 18, 18, 0.85);
             backdrop-filter: blur(12px);
@@ -94,6 +89,15 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* ==========================================================
+           RESPONSIVE: GAMBAR TETAP KELIHATAN
+        ========================================================== */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
@@ -406,4 +410,4 @@
         }
     </script>
 </body>
-</html>
+    </html>
