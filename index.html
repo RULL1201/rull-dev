@@ -3,747 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RulzzDownloader - Downloader Platform</title>
+    <title>RulzzDownloader - Real Download</title>
     <style>
-        /* ==========================================================
-           RESET & VARIABEL
-        ========================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --primary: #6C3CE1;
-            --primary-dark: #5228B5;
-            --primary-light: #8B5CF6;
-            --secondary: #0D0D1A;
-            --accent: #FF6B6B;
-            --gradient-start: #6C3CE1;
-            --gradient-end: #E9405F;
-            --text-light: #FFFFFF;
-            --text-muted: #A0A0B8;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --shadow: 0 20px 60px rgba(108, 60, 225, 0.3);
-            --radius: 20px;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: var(--secondary);
-            color: var(--text-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* ==========================================================
-           ANIMASI BACKGROUND
-        ========================================================== */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .bg-animation .circle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.15;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .bg-animation .circle:nth-child(1) {
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -200px;
-            background: var(--gradient-start);
-            animation-delay: 0s;
-        }
-
-        .bg-animation .circle:nth-child(2) {
-            width: 400px;
-            height: 400px;
-            bottom: -100px;
-            left: -100px;
-            background: var(--gradient-end);
-            animation-delay: -5s;
-        }
-
-        .bg-animation .circle:nth-child(3) {
-            width: 300px;
-            height: 300px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--primary-light);
-            animation-delay: -10s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(50px, -30px) scale(1.1); }
-            50% { transform: translate(-20px, 40px) scale(0.9); }
-            75% { transform: translate(30px, -20px) scale(1.05); }
-        }
-
-        /* ==========================================================
-           CONTAINER
-        ========================================================== */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0D0D1A;
+            color: #fff;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
-        }
-
-        /* ==========================================================
-           HEADER - LOGO EMOJI 🔥
-        ========================================================== */
-        .header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .logo-wrapper {
-            display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
-            text-decoration: none;
-            position: relative;
+            padding: 20px;
         }
-
-        .logo-emoji {
-            font-size: 4rem;
-            line-height: 1;
-            filter: drop-shadow(0 0 30px rgba(108, 60, 225, 0.4));
-            animation: pulseEmoji 2.5s infinite ease-in-out;
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
-
-        @keyframes pulseEmoji {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(-5deg); }
-        }
-
-        .logo-text {
-            font-size: 2.8rem;
+        .logo {
+            text-align: center;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background: linear-gradient(135deg, #6C3CE1, #E9405F);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-            position: relative;
+            margin-bottom: 10px;
         }
-
-        .logo-text::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border-radius: 10px;
-            opacity: 0.3;
-        }
-
+        .logo span { font-size: 3rem; -webkit-text-fill-color: initial; }
         .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-            letter-spacing: 1px;
+            text-align: center;
+            color: #A0A0B8;
+            margin-bottom: 25px;
         }
-
-        .subtitle span {
-            color: var(--accent);
-            -webkit-text-fill-color: initial;
-        }
-
-        /* ==========================================================
-           CARD UTAMA
-        ========================================================== */
-        .main-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 2.5rem 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .main-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 30px 80px rgba(108, 60, 225, 0.4);
-        }
-
-        /* ==========================================================
-           PLATFORM SELECTOR
-        ========================================================== */
-        .platform-selector {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 2rem;
-        }
-
-        .platform-btn {
-            padding: 0.7rem 1.5rem;
-            border-radius: 50px;
-            border: 2px solid var(--card-border);
-            background: transparent;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .platform-btn:hover {
-            border-color: var(--primary-light);
-            color: var(--text-light);
-            transform: translateY(-2px);
-        }
-
-        .platform-btn.active {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            border-color: transparent;
-            color: #fff;
-            box-shadow: 0 8px 25px rgba(108, 60, 225, 0.4);
-        }
-
-        .platform-btn .emoji {
-            font-size: 1.2rem;
-        }
-
-        /* ==========================================================
-           INPUT
-        ========================================================== */
         .input-group {
             display: flex;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
+            gap: 10px;
             flex-wrap: wrap;
         }
-
         .input-group input {
             flex: 1;
-            min-width: 200px;
-            padding: 1rem 1.5rem;
-            border-radius: 60px;
-            border: 2px solid var(--card-border);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            font-size: 1rem;
-            transition: var(--transition);
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary-light);
-            box-shadow: 0 0 30px rgba(108, 60, 225, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .input-group input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .btn-download {
-            padding: 1rem 2.5rem;
-            border-radius: 60px;
-            border: none;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            padding: 14px 20px;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
             color: #fff;
             font-size: 1rem;
+            outline: none;
+            min-width: 200px;
+        }
+        .input-group input:focus {
+            border-color: #6C3CE1;
+        }
+        .btn-download {
+            padding: 14px 30px;
+            border-radius: 50px;
+            border: none;
+            background: linear-gradient(135deg, #6C3CE1, #E9405F);
+            color: #fff;
             font-weight: 700;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+            transition: 0.3s;
             white-space: nowrap;
         }
-
-        .btn-download:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 30px rgba(108, 60, 225, 0.5);
-        }
-
-        .btn-download:active {
-            transform: scale(0.95);
-        }
-
-        /* ==========================================================
-           HASIL - TAMBAHAN DOWNLOAD LANGSUNG
-        ========================================================== */
+        .btn-download:hover { transform: scale(1.05); }
         .result-area {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px dashed var(--card-border);
+            margin-top: 25px;
             display: none;
-            animation: fadeSlide 0.5s ease;
         }
-
-        .result-area.show {
-            display: block;
-        }
-
-        @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        .result-area.show { display: block; }
         .result-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--card-border);
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-        }
-
-        .result-item .thumb {
-            width: 60px;
-            height: 60px;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.03);
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            margin-bottom: 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .result-item .thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            background: #1a1a2e;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             flex-shrink: 0;
+            overflow: hidden;
         }
-
-        .result-item .info {
-            flex: 1;
+        .result-item .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-
-        .result-item .info .title {
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .result-item .info .meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
+        .result-item .info { flex: 1; }
+        .result-item .info .title { font-weight: 600; }
+        .result-item .info .meta { font-size: 0.85rem; color: #A0A0B8; }
         .result-item .download-btn {
-            padding: 0.5rem 1.2rem;
+            padding: 8px 18px;
             border-radius: 30px;
             border: none;
-            background: var(--accent);
+            background: #FF6B6B;
             color: #fff;
             font-weight: 600;
-            font-size: 0.85rem;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
+            transition: 0.3s;
         }
-
-        .result-item .download-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        /* ==========================================================
-           PROGRESS BAR DOWNLOAD
-        ========================================================== */
+        .result-item .download-btn:hover { transform: scale(1.05); }
         .progress-wrapper {
-            margin-top: 1rem;
+            margin-top: 15px;
             display: none;
-            animation: fadeSlide 0.3s ease;
         }
-
-        .progress-wrapper.show {
-            display: block;
-        }
-
+        .progress-wrapper.show { display: block; }
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255,255,255,0.1);
             border-radius: 10px;
             overflow: hidden;
-            margin-top: 0.5rem;
         }
-
         .progress-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-            border-radius: 10px;
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #6C3CE1, #E9405F);
+            transition: width 0.3s;
         }
-
         .progress-text {
-            font-size: 0.8rem;
-            color: var(--text-muted);
             text-align: center;
-            margin-top: 0.3rem;
+            font-size: 0.85rem;
+            color: #A0A0B8;
+            margin-top: 5px;
         }
-
-        /* ==========================================================
-           FITUR CARD
-        ========================================================== */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
         }
-
-        .feature-item {
+        .features .item {
             text-align: center;
-            padding: 1rem 0.5rem;
-            border-radius: var(--radius);
-            background: rgba(255, 255, 255, 0.03);
-            transition: var(--transition);
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
         }
-
-        .feature-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-4px);
-        }
-
-        .feature-item .icon {
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .feature-item .label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        /* ==========================================================
-           FOOTER
-        ========================================================== */
+        .features .item .icon { font-size: 1.8rem; }
+        .features .item .label { font-size: 0.8rem; color: #A0A0B8; }
         .footer {
             text-align: center;
-            margin-top: 3rem;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--card-border);
-            padding-top: 2rem;
+            margin-top: 25px;
+            color: #A0A0B8;
+            font-size: 0.8rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
         }
-
-        .footer a {
-            color: var(--primary-light);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer a:hover {
-            color: var(--accent);
-        }
-
-        /* ==========================================================
-           RESPONSIVE
-        ========================================================== */
-        @media (max-width: 768px) {
-            .container { padding: 1rem; }
-            .logo-emoji { font-size: 3rem; }
-            .logo-text { font-size: 2rem; }
-            .main-card { padding: 1.5rem; }
+        @media (max-width: 600px) {
+            .container { padding: 15px; }
+            .logo { font-size: 1.8rem; }
             .input-group { flex-direction: column; }
-            .input-group input { min-width: auto; }
-            .btn-download { justify-content: center; width: 100%; }
-            .platform-selector { gap: 0.5rem; }
-            .platform-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+            .btn-download { width: 100%; justify-content: center; }
             .result-item { flex-wrap: wrap; }
-            .result-item .download-btn { width: 100%; text-align: center; justify-content: center; }
-            .features { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .logo-emoji { font-size: 2.5rem; }
-            .logo-text { font-size: 1.6rem; }
-            .subtitle { font-size: 0.9rem; }
-            .platform-selector { gap: 0.3rem; }
-            .platform-btn { padding: 0.4rem 0.8rem; font-size: 0.7rem; }
-            .features { grid-template-columns: 1fr 1fr; }
+            .result-item .download-btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
-
-    <!-- BACKGROUND ANIMATION -->
-    <div class="bg-animation">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-    </div>
-
-    <!-- MAIN CONTAINER -->
     <div class="container">
+        <div class="logo"><span>🔥</span> RulzzDownloader</div>
+        <p class="subtitle">Download Video & Foto dari TikTok, Instagram, YouTube & lainnya</p>
 
-        <!-- HEADER - LOGO DENGAN EMOJI 🔥 -->
-        <header class="header">
-            <div class="logo-wrapper">
-                <span class="logo-emoji">🔥</span>
-                <span class="logo-text">RulzzDownloader</span>
-            </div>
-            <p class="subtitle">
-                Download konten dari <span>TikTok</span>, <span>Instagram</span>, <span>YouTube</span>, <span>Facebook</span> & lebih banyak lagi
-            </p>
-        </header>
-
-        <!-- MAIN CARD -->
-        <div class="main-card">
-
-            <!-- Platform Selector -->
-            <div class="platform-selector">
-                <button class="platform-btn active" data-platform="tiktok">
-                    <span class="emoji">🎵</span> TikTok
-                </button>
-                <button class="platform-btn" data-platform="instagram">
-                    <span class="emoji">📸</span> Instagram
-                </button>
-                <button class="platform-btn" data-platform="youtube">
-                    <span class="emoji">▶️</span> YouTube
-                </button>
-                <button class="platform-btn" data-platform="facebook">
-                    <span class="emoji">📘</span> Facebook
-                </button>
-                <button class="platform-btn" data-platform="twitter">
-                    <span class="emoji">🐦</span> Twitter
-                </button>
-            </div>
-
-            <!-- Input -->
-            <div class="input-group">
-                <input type="text" id="urlInput" placeholder="Tempelkan URL di sini...">
-                <button class="btn-download" id="downloadBtn">
-                    ⬇️ Download
-                </button>
-            </div>
-
-            <!-- Result Area -->
-            <div class="result-area" id="resultArea">
-                <div class="result-item" id="resultVideo">
-                    <div class="thumb">🎬</div>
-                    <div class="info">
-                        <div class="title">Contoh Video</div>
-                        <div class="meta">TikTok · 1.2M views · 3 menit lalu</div>
-                    </div>
-                    <button class="download-btn" data-type="video">⬇️ Unduh</button>
-                </div>
-                <div class="result-item" id="resultImage">
-                    <div class="thumb">🖼️</div>
-                    <div class="info">
-                        <div class="title">Contoh Foto</div>
-                        <div class="meta">Instagram · 50K likes · 2 jam lalu</div>
-                    </div>
-                    <button class="download-btn" data-type="image">⬇️ Unduh</button>
-                </div>
-
-                <!-- Progress Download -->
-                <div class="progress-wrapper" id="progressWrapper">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <div class="progress-text" id="progressText">Mengunduh ... 0%</div>
-                </div>
-            </div>
-
-            <!-- Features -->
-            <div class="features">
-                <div class="feature-item">
-                    <div class="icon">⚡</div>
-                    <div class="label">Cepat & Stabil</div>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">🎯</div>
-                    <div class="label">Tanpa Watermark</div>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">🔄</div>
-                    <div class="label">Update Otomatis</div>
-                </div>
-                <div class="feature-item">
-                    <div class="icon">🔒</div>
-                    <div class="label">Aman & Pribadi</div>
-                </div>
-            </div>
-
+        <div class="input-group">
+            <input type="text" id="urlInput" placeholder="Tempelkan URL di sini...">
+            <button class="btn-download" id="downloadBtn">⬇️ Proses</button>
         </div>
 
-        <!-- FOOTER -->
-        <footer class="footer">
-            &copy; 2026 <strong>RulzzDownloader</strong> — Dibangun dengan 🔥 oleh RulzzXZX
-            <br>
-            <span style="font-size: 0.8rem; opacity: 0.6;">
-                Untuk keperluan pribadi. Pastikan Anda memiliki hak untuk mengunduh konten.
-            </span>
-        </footer>
+        <div class="result-area" id="resultArea">
+            <div id="resultContainer"></div>
+            <div class="progress-wrapper" id="progressWrapper">
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                <div class="progress-text" id="progressText">Mengunduh ... 0%</div>
+            </div>
+        </div>
 
+        <div class="features">
+            <div class="item"><div class="icon">⚡</div><div class="label">Cepat</div></div>
+            <div class="item"><div class="icon">🖼️</div><div class="label">Foto & Video</div></div>
+            <div class="item"><div class="icon">🔒</div><div class="label">Aman</div></div>
+            <div class="item"><div class="icon">🎯</div><div class="label">Tanpa Watermark</div></div>
+        </div>
+
+        <div class="footer">© 2026 RulzzDownloader — Dibangun dengan 🔥 oleh RulzzXZX</div>
     </div>
 
     <script>
         // ==========================================================
-        // INTERAKSI & FUNGSI DOWNLOAD LANGSUNG
+        // API GRATIS UNTUK DOWNLOAD
         // ==========================================================
-
-        const platformBtns = document.querySelectorAll('.platform-btn');
+        
         const urlInput = document.getElementById('urlInput');
         const downloadBtn = document.getElementById('downloadBtn');
         const resultArea = document.getElementById('resultArea');
+        const resultContainer = document.getElementById('resultContainer');
         const progressWrapper = document.getElementById('progressWrapper');
         const progressFill = document.getElementById('progressFill');
         const progressText = document.getElementById('progressText');
 
-        // Sample data untuk hasil
-        const sampleData = {
-            video: {
-                title: 'Video Keren',
-                meta: 'TikTok · 1.2M views · 3 menit lalu',
-                thumb: '🎬'
-            },
-            image: {
-                title: 'Foto Keren',
-                meta: 'Instagram · 50K likes · 2 jam lalu',
-                thumb: '🖼️'
-            }
-        };
+        // API Downloader Gratis (pake API pihak ketiga)
+        const API_URL = 'https://api.tikmate.app/api/lookup?url=';
 
-        // Switch platform
-        platformBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                platformBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const platform = this.dataset.platform;
-                const placeholders = {
-                    tiktok: 'https://www.tiktok.com/@user/video/123456789',
-                    instagram: 'https://www.instagram.com/p/ABCDEF123456/',
-                    youtube: 'https://www.youtube.com/watch?v=abcdefghijk',
-                    facebook: 'https://www.facebook.com/watch/?v=123456789',
-                    twitter: 'https://twitter.com/user/status/123456789'
-                };
-                urlInput.placeholder = `Tempelkan URL ${this.textContent.trim()} di sini...`;
-            });
-        });
-
-        // ==========================================================
-        // FUNGSI DOWNLOAD LANGSUNG (SIMULASI)
-        // ==========================================================
-
-        function startDownload(fileType) {
-            // Tampilkan progress
-            progressWrapper.classList.add('show');
-            progressFill.style.width = '0%';
-            progressText.textContent = '⏳ Memulai download...';
-
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    progressText.textContent = '✅ Download selesai!';
-                    
-                    // Trigger download file
-                    downloadFile(fileType);
-                    
-                    setTimeout(() => {
-                        progressWrapper.classList.remove('show');
-                        progressFill.style.width = '0%';
-                    }, 2000);
-                }
-                progressFill.style.width = progress + '%';
-                progressText.textContent = `⏳ Mengunduh ... ${Math.floor(progress)}%`;
-            }, 200);
-        }
-
-        function downloadFile(type) {
-            // Buat file dummy untuk didownload langsung
-            const fileName = type === 'video' ? 'video_keren.mp4' : 'foto_keren.jpg';
-            const content = type === 'video' ? 
-                'Ini adalah file video dummy. Silahkan ganti dengan URL video asli.' : 
-                'Ini adalah file gambar dummy. Silahkan ganti dengan URL gambar asli.';
-            
-            // Buat blob dan download
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            // Notifikasi
-            showNotification(`✅ ${type === 'video' ? 'Video' : 'Foto'} berhasil diunduh!`);
-        }
-
-        function showNotification(message) {
-            const notif = document.createElement('div');
-            notif.style.cssText = `
-                position: fixed;
-                bottom: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #6C3CE1, #E9405F);
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 12px;
-                font-weight: 600;
-                box-shadow: 0 10px 30px rgba(108, 60, 225, 0.4);
-                z-index: 9999;
-                animation: fadeSlide 0.5s ease;
-                max-width: 300px;
-            `;
-            notif.textContent = message;
-            document.body.appendChild(notif);
-            
-            setTimeout(() => {
-                notif.style.opacity = '0';
-                notif.style.transition = 'opacity 0.5s';
-                setTimeout(() => notif.remove(), 500);
-            }, 3000);
-        }
-
-        // ==========================================================
-        // EVENT LISTENER UNTUK TOMBOL DOWNLOAD
-        // ==========================================================
-
-        // Tombol download utama
-        downloadBtn.addEventListener('click', function() {
+        downloadBtn.addEventListener('click', async function() {
             const url = urlInput.value.trim();
             if (!url) {
                 urlInput.style.borderColor = '#FF6B6B';
@@ -755,59 +233,163 @@
                 return;
             }
 
-            // Tampilkan hasil
-            resultArea.classList.add('show');
-            
-            // Scroll ke hasil
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
-            // Update konten hasil (simulasi)
-            const videoItem = document.getElementById('resultVideo');
-            const imageItem = document.getElementById('resultImage');
-            
-            const platform = document.querySelector('.platform-btn.active')?.dataset.platform || 'tiktok';
-            const platformNames = {
-                tiktok: 'TikTok',
-                instagram: 'Instagram',
-                youtube: 'YouTube',
-                facebook: 'Facebook',
-                twitter: 'Twitter'
-            };
-            
-            videoItem.querySelector('.info .title').textContent = 'Video dari ' + platformNames[platform] || 'Platform';
-            videoItem.querySelector('.info .meta').textContent = `${platformNames[platform] || 'Platform'} · 1.2M views · 3 menit lalu`;
-            
-            imageItem.querySelector('.info .title').textContent = 'Foto dari ' + platformNames[platform] || 'Platform';
-            imageItem.querySelector('.info .meta').textContent = `${platformNames[platform] || 'Platform'} · 50K likes · 2 jam lalu`;
+            // Tampilkan loading
+            this.textContent = '⏳ Memproses...';
+            this.disabled = true;
+
+            try {
+                // Coba ambil data dari API
+                const response = await fetch(API_URL + encodeURIComponent(url));
+                const data = await response.json();
+
+                if (data && data.video_url) {
+                    showResult(data);
+                } else {
+                    // Fallback: pake metode lain
+                    fallbackDownload(url);
+                }
+            } catch (error) {
+                // Kalo API error, pake fallback
+                fallbackDownload(url);
+            }
+
+            this.textContent = '⬇️ Proses';
+            this.disabled = false;
         });
 
-        // Tombol download di hasil
-        document.querySelectorAll('.download-btn[data-type]').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const type = this.dataset.type;
-                startDownload(type);
+        function showResult(data) {
+            resultArea.classList.add('show');
+            resultContainer.innerHTML = '';
+
+            // Tampilkan video
+            if (data.video_url) {
+                const item = createResultItem(
+                    '🎬',
+                    'Video',
+                    data.author || 'Unknown',
+                    data.video_url,
+                    'video'
+                );
+                resultContainer.appendChild(item);
+            }
+
+            // Tampilkan gambar (jika ada)
+            if (data.thumbnail) {
+                const item = createResultItem(
+                    '🖼️',
+                    'Foto/Thumbnail',
+                    data.author || 'Unknown',
+                    data.thumbnail,
+                    'image'
+                );
+                resultContainer.appendChild(item);
+            }
+
+            // Scroll ke hasil
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function createResultItem(icon, title, author, downloadUrl, type) {
+            const div = document.createElement('div');
+            div.className = 'result-item';
+            
+            // Thumbnail
+            const thumb = document.createElement('div');
+            thumb.className = 'thumb';
+            if (type === 'image' && downloadUrl) {
+                thumb.innerHTML = `<img src="${downloadUrl}" alt="thumbnail" onerror="this.innerHTML='🖼️'">`;
+            } else {
+                thumb.textContent = icon;
+            }
+            
+            // Info
+            const info = document.createElement('div');
+            info.className = 'info';
+            info.innerHTML = `
+                <div class="title">${title}</div>
+                <div class="meta">${author} · Klik Unduh untuk download</div>
+            `;
+            
+            // Tombol Download
+            const btn = document.createElement('button');
+            btn.className = 'download-btn';
+            btn.textContent = '⬇️ Unduh';
+            btn.addEventListener('click', function() {
+                if (downloadUrl) {
+                    startDownload(downloadUrl, type);
+                } else {
+                    alert('Link download tidak tersedia!');
+                }
             });
-        });
+            
+            div.appendChild(thumb);
+            div.appendChild(info);
+            div.appendChild(btn);
+            return div;
+        }
+
+        function startDownload(url, type) {
+            // Tampilkan progress
+            progressWrapper.classList.add('show');
+            progressFill.style.width = '0%';
+            progressText.textContent = '⏳ Memulai download...';
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10 + 3;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    progressText.textContent = '✅ Download selesai!';
+                    
+                    // Trigger download
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.target = '_blank';
+                    a.download = type === 'video' ? 'video.mp4' : 'foto.jpg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    setTimeout(() => {
+                        progressWrapper.classList.remove('show');
+                        progressFill.style.width = '0%';
+                    }, 2000);
+                }
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `⏳ Mengunduh ... ${Math.floor(progress)}%`;
+            }, 200);
+        }
+
+        // ==========================================================
+        // FALLBACK - PAKE IFRAME UNTUK DOWNLOAD
+        // ==========================================================
+
+        function fallbackDownload(url) {
+            resultArea.classList.add('show');
+            resultContainer.innerHTML = `
+                <div class="result-item">
+                    <div class="thumb">📥</div>
+                    <div class="info">
+                        <div class="title">Download Manual</div>
+                        <div class="meta">API tidak merespon, coba buka link ini:</div>
+                    </div>
+                    <button class="download-btn" onclick="window.open('${url}', '_blank')">🔗 Buka Link</button>
+                </div>
+                <div style="padding:15px; background:rgba(255,107,107,0.1); border-radius:12px; margin-top:10px; font-size:0.9rem; color:#FF6B6B;">
+                    ⚠️ Gunakan fitur bawaan browser untuk download dari link tersebut.
+                </div>
+            `;
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
         // Enter key
         urlInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                downloadBtn.click();
-            }
+            if (e.key === 'Enter') downloadBtn.click();
         });
 
-        // Reset result if input changes
-        urlInput.addEventListener('input', function() {
-            if (this.value.trim() === '') {
-                resultArea.classList.remove('show');
-                progressWrapper.classList.remove('show');
-            }
-        });
-
-        console.log('%c 🔥 RulzzDownloader - Direct Download 🔥', 'font-size: 20px; font-weight: bold; color: #6C3CE1;');
-        console.log('%c Klik tombol Download untuk mulai', 'font-size: 14px; color: #A0A0B8;');
+        console.log('%c 🔥 RulzzDownloader - Real Download 🔥', 'font-size:20px; font-weight:bold; color:#6C3CE1;');
+        console.log('%c API: https://api.tikmate.app/api/lookup?url=', 'font-size:12px; color:#A0A0B8;');
     </script>
-
 </body>
-    </html>
+</html>
